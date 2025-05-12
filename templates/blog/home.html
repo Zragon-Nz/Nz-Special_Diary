@@ -85,11 +85,15 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: linear-gradient(to bottom, #e8dcd1, #d4c2a8); /* Paper-like gradient */
+            /* --- More Colorful Background --- */
+            background: linear-gradient(45deg, #ff8a00, #e52e71, #0072ff, #8a2be2);
+            background-size: 400% 400%; /* Needed for animation */
+            animation: gradientBG 10s ease infinite; /* Animated gradient */
             z-index: 9999;
             transform: scaleX(0); /* Start closed */
             transform-origin: left;
-            transition: transform 0.05s ease-in; /* Very Fast Wipe animation (0.05s) */
+            /* --- Faster Wipe --- */
+            transition: transform 0.05s ease-in; /* Kept the wipe itself fast */
             pointer-events: none;
             display: flex; /* To position clouds and text */
             flex-direction: column; /* Stack elements vertically */
@@ -103,6 +107,14 @@
             pointer-events: all;
         }
 
+        /* Keyframes for the background gradient animation */
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+
         /* --- Realistic Cloud Styles (Simplified) --- */
         .cloud {
             position: absolute; /* Position clouds within the overlay */
@@ -111,8 +123,12 @@
             background: #fff; /* White */
             border-radius: 100px;
             opacity: 0; /* Start invisible */
-            animation: cloud-appear-disappear 1s ease-in-out forwards; /* Faster Cloud Animation Duration */
-            filter: drop-shadow(0 0 5px rgba(0,0,0,0.1)); /* Shadow */
+             /* --- Faster Cloud Animation --- */
+            animation: cloud-appear-disappear 0.6s ease-in-out forwards; /* Faster duration */
+            /* --- Colorful Glow --- */
+            filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.5)); /* Base white glow */
+            box-shadow: 0 0 15px 5px rgba(0, 180, 255, 0.4), /* Light Blue */
+                        0 0 25px 10px rgba(255, 100, 150, 0.3); /* Pinkish */
         }
 
         .cloud::before,
@@ -142,56 +158,54 @@
         }
 
         /* Position and size individual clouds (More) */
-        .cloud:nth-child(1) { top: 15%; left: 10%; animation-delay: 0.03s; } /* Faster delays */
-        .cloud:nth-child(2) { top: 40%; left: 35%; width: 130px; height: 45px; animation-delay: 0.06s; }
+        /* --- Faster Animation Delays (roughly halved) --- */
+        .cloud:nth-child(1) { top: 15%; left: 10%; animation-delay: 0.015s; }
+        .cloud:nth-child(2) { top: 40%; left: 35%; width: 130px; height: 45px; animation-delay: 0.03s; }
         .cloud:nth-child(2)::before { width: 65px; height: 65px; top: -32px; left: 20px; }
         .cloud:nth-child(2)::after { width: 85px; height: 85px; top: -42px; right: 10px; }
         .cloud:nth-child(2) span { width: 45px; height: 45px; top: -22px; left: 65px; }
-        .cloud:nth-child(3) { top: 70%; left: 60%; animation-delay: 0.09s; }
-        .cloud:nth-child(4) { top: 25%; left: 85%; width: 90px; height: 30px; animation-delay: 0.12s; }
+        .cloud:nth-child(3) { top: 70%; left: 60%; animation-delay: 0.045s; }
+        .cloud:nth-child(4) { top: 25%; left: 85%; width: 90px; height: 30px; animation-delay: 0.06s; }
         .cloud:nth-child(4)::before { width: 45px; height: 45px; top: -22px; left: 12px; }
         .cloud:nth-child(4)::after { width: 60px; height: 60px; top: -30px; right: 8px; }
         .cloud:nth-child(4) span { width: 25px; height: 25px; top: -12px; left: 45px; }
-        .cloud:nth-child(5) { top: 55%; left: 5%; width: 115px; height: 38px; animation-delay: 0.15s; }
+        .cloud:nth-child(5) { top: 55%; left: 5%; width: 115px; height: 38px; animation-delay: 0.075s; }
         .cloud:nth-child(5)::before { width: 58px; height: 58px; top: -29px; left: 18px; }
         .cloud:nth-child(5)::after { width: 78px; height: 78px; top: -39px; right: 9px; }
         .cloud:nth-child(5) span { width: 38px; height: 38px; top: -19px; left: 58px; }
-
-        /* Additional Clouds - simple positioning */
-        .cloud:nth-child(6) { top: 85%; left: 20%; animation-delay: 0.18s; }
-        .cloud:nth-child(7) { top: 10%; left: 50%; width: 95px; height: 33px; animation-delay: 0.21s; }
+        .cloud:nth-child(6) { top: 85%; left: 20%; animation-delay: 0.09s; }
+        .cloud:nth-child(7) { top: 10%; left: 50%; width: 95px; height: 33px; animation-delay: 0.105s; }
         .cloud:nth-child(7)::before { width: 48px; height: 48px; top: -24px; left: 14px; }
         .cloud:nth-child(7)::after { width: 65px; height: 65px; top: -33px; right: 7px; }
         .cloud:nth-child(7) span { width: 30px; height: 30px; top: -15px; left: 50px; }
-        .cloud:nth-child(8) { top: 60%; left: 80%; animation-delay: 0.24s; }
-        .cloud:nth-child(9) { top: 30%; left: 5%; width: 140px; height: 48px; animation-delay: 0.27s; }
+        .cloud:nth-child(8) { top: 60%; left: 80%; animation-delay: 0.12s; }
+        .cloud:nth-child(9) { top: 30%; left: 5%; width: 140px; height: 48px; animation-delay: 0.135s; }
         .cloud:nth-child(9)::before { width: 70px; height: 70px; top: -35px; left: 22px; }
         .cloud:nth-child(9)::after { width: 90px; height: 90px; top: -45px; right: 12px; }
         .cloud:nth-child(9) span { width: 48px; height: 48px; top: -24px; left: 68px; }
-        .cloud:nth-child(10) { top: 75%; left: 40%; width: 110px; height: 38px; animation-delay: 0.30s; }
+        .cloud:nth-child(10) { top: 75%; left: 40%; width: 110px; height: 38px; animation-delay: 0.15s; }
         .cloud:nth-child(10)::before { width: 55px; height: 55px; top: -28px; left: 18px; }
         .cloud:nth-child(10)::after { width: 75px; height: 75px; top: -38px; right: 8px; }
         .cloud:nth-child(10) span { width: 35px; height: 35px; top: -18px; left: 55px; }
-
-        /* Even More Additional Clouds - simple positioning */
-        .cloud:nth-child(11) { top: 5%; left: 70%; animation-delay: 0.33s; }
-        .cloud:nth-child(12) { top: 90%; left: 50%; width: 90px; height: 30px; animation-delay: 0.36s; }
+        .cloud:nth-child(11) { top: 5%; left: 70%; animation-delay: 0.165s; }
+        .cloud:nth-child(12) { top: 90%; left: 50%; width: 90px; height: 30px; animation-delay: 0.18s; }
         .cloud:nth-child(12)::before { width: 45px; height: 45px; top: -22px; left: 12px; }
         .cloud:nth-child(12)::after { width: 60px; height: 60px; top: -30px; right: 8px; }
         .cloud:nth-child(12) span { width: 25px; height: 25px; top: -12px; left: 45px; }
-        .cloud:nth-child(13) { top: 20%; left: 30%; width: 115px; height: 38px; animation-delay: 0.39s; }
+        .cloud:nth-child(13) { top: 20%; left: 30%; width: 115px; height: 38px; animation-delay: 0.195s; }
         .cloud:nth-child(13)::before { width: 58px; height: 58px; top: -29px; left: 18px; }
         .cloud:nth-child(13)::after { width: 78px; height: 78px; top: -39px; right: 9px; }
         .cloud:nth-child(13) span { width: 38px; height: 38px; top: -19px; left: 58px; }
-        .cloud:nth-child(14) { top: 70%; left: 15%; animation-delay: 0.42s; }
-        .cloud:nth-child(15) { top: 45%; left: 90%; width: 100px; height: 35px; animation-delay: 0.45s; }
+        .cloud:nth-child(14) { top: 70%; left: 15%; animation-delay: 0.21s; }
+        .cloud:nth-child(15) { top: 45%; left: 90%; width: 100px; height: 35px; animation-delay: 0.225s; }
 
 
-        /* --- Keyframe Animation for Clouds --- */
+        /* --- Keyframe Animation for Clouds (Faster) --- */
         @keyframes cloud-appear-disappear {
+             /* Appear faster, stay slightly shorter, disappear faster */
             0% { opacity: 0; transform: translateY(20px); }
-            20% { opacity: 1; transform: translateY(0); }
-            80% { opacity: 1; transform: translateY(0); }
+            30% { opacity: 1; transform: translateY(0); } /* Appear by 30% */
+            70% { opacity: 1; transform: translateY(0); } /* Start fading at 70% */
             100% { opacity: 0; transform: translateY(-20px); }
         }
 
@@ -199,12 +213,14 @@
         .wait-message {
             font-family: 'Coming Soon', cursive; /* Use Coming Soon font */
             font-size: 8em; /* Make text even larger */
-            color: #3a2f25; /* Match dark text color */
+             /* --- Adjusted Color for Contrast --- */
+            color: #ffffff; /* White for better contrast on colorful background */
             opacity: 0; /* Start invisible */
             transition: opacity 0.3s ease-in-out; /* Smooth fade in/out */
             z-index: 10000; /* Ensure it's above clouds */
             margin-bottom: 20px; /* Add space below the message */
-            text-shadow: 2px 2px 5px rgba(0,0,0,0.2); /* Subtle text shadow */
+            /* --- Adjusted Shadow for Contrast --- */
+            text-shadow: 3px 3px 8px rgba(0,0,0,0.5); /* Stronger shadow */
         }
 
         .transition-overlay.show-wait .wait-message {
@@ -215,16 +231,18 @@
         .timer {
             font-family: 'Special Elite', cursive; /* Use typewriter font for timer */
             font-size: 3em; /* Size for the timer */
-            color: #5a4f45; /* Muted color */
+             /* --- Adjusted Color for Contrast --- */
+            color: #f0f0f0; /* Light gray/off-white */
             opacity: 0; /* Start invisible */
             transition: opacity 0.3s ease-in-out; /* Smooth fade in/out */
             z-index: 10000; /* Ensure it's above clouds */
+             /* --- Adjusted Shadow for Contrast --- */
+            text-shadow: 2px 2px 5px rgba(0,0,0,0.4); /* Slightly darker shadow */
         }
 
          .transition-overlay.show-wait .timer {
             opacity: 1; /* Fade in when active */
-        }
-
+         }
 
     </style>
 </head>
@@ -233,12 +251,17 @@
     {% for post in posts %}
         <div class="post-entry">
              <a href="{{ post.slug }}" class="post-link">
-                <h2>{{ post.title }}</h2>
-                <img src="{{ post.image.url }}" alt="{{ post.title }} image">
+                 <h2>{{ post.title }}</h2>
+                 <img src="{{ post.image.url }}" alt="{{ post.title }} image">
              </a>
-            <p>{{ post.created_at }}</p>
+             <p>{{ post.created_at }}</p>
         </div>
     {% endfor %}
+
+    <audio id="transitionSound" preload="auto">
+        <source src="path/to/your/transition-swoosh.mp3" type="audio/mpeg">
+        Your browser does not support the audio element.
+    </audio>
 
     <div class="transition-overlay" id="transitionOverlay">
         <div class="cloud"><span></span></div>
@@ -268,10 +291,12 @@
             const overlay = document.getElementById('transitionOverlay');
             const waitMessage = document.getElementById('waitMessage');
             const transitionTimer = document.getElementById('transitionTimer');
+            const transitionSound = document.getElementById('transitionSound'); // Get the audio element
 
-            // Set the total duration for the transition effect (should be >= cloud animation end time + timer duration)
-            const timerCountdownDuration = 3; // Count down from 3 (3, 2, 1, 0)
-            const showWaitAndTimerDelay = 500; // Show "Wait" and timer after 0.5 seconds
+            // --- Faster Transition Timings ---
+            const timerCountdownDuration = 1; // Count down from 1 (1, 0) - Much faster!
+            const showWaitAndTimerDelay = 200; // Show "Wait" and timer after 0.2 seconds (Faster!)
+            // Recalculate total duration based on new timings
             const totalTransitionDuration = showWaitAndTimerDelay + (timerCountdownDuration * 1000); // Total duration is delay + countdown time
 
             postLinks.forEach(link => {
@@ -282,16 +307,23 @@
                     // Activate the overlay to start the wipe animation
                     overlay.classList.add('active');
 
+                     // --- Play Sound Effect ---
+                    if (transitionSound) {
+                        transitionSound.currentTime = 0; // Rewind sound to start
+                        transitionSound.play().catch(e => console.error("Audio play failed:", e)); // Play sound (added error handling)
+                    }
+
+
                     // Reset timer display
                     transitionTimer.textContent = ''; // Clear previous timer value
 
-                    // Set a timeout to show the "Wait" message and start the timer
+                    // Set a timeout to show the "Wait" message and start the timer (Faster Delay)
                     setTimeout(function() {
                         // Add a class to the overlay to show the wait message and timer
                         overlay.classList.add('show-wait');
 
-                        // Start the countdown timer
-                        let timeLeft = timerCountdownDuration; // Start countdown from the specified duration
+                        // Start the countdown timer (Faster Duration)
+                        let timeLeft = timerCountdownDuration; // Start countdown from the new duration
                         transitionTimer.textContent = timeLeft; // Display initial time
 
                         const timerInterval = setInterval(function() {
@@ -301,20 +333,17 @@
                             } else {
                                 clearInterval(timerInterval); // Stop the timer when done
                             }
-                        }, 1000); // Update every 1 second
+                        }, 1000); // Update every 1 second (interval kept the same, duration is shorter)
 
-                    }, showWaitAndTimerDelay);
+                    }, showWaitAndTimerDelay); // Use the faster delay
 
-                    // Wait for the full transition duration, then navigate
+                    // Wait for the new, shorter full transition duration, then navigate
                     setTimeout(function() {
                         window.location.href = targetUrl;
-                    }, totalTransitionDuration);
+                    }, totalTransitionDuration); // Use the shorter total duration
                 });
             });
 
-            // Optional: Hide the "Wait" message and timer when the overlay is not active (e.g., on page load)
-            // This requires code on the destination page to remove the 'active' class from the overlay.
-            // For now, we'll just ensure they start hidden.
         });
     </script>
 </body>
