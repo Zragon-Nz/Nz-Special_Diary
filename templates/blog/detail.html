@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{{ post.title }}</title>
+    <link href="https://fonts.googleapis.com/css2?family=Coming+Soon&family=Special+Elite&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Coming Soon', cursive; /* Default font for text, looks like handwriting */
+            font-size: 1.3em; /* Increased base font size for larger text */
+            line-height: 2.0; /* Increased line height for improved readability */
+            margin: 40px auto; /* Add margin, center content block */
+            max-width: 800px; /* Limit content width like a diary page */
+            background-color: #f8f0e3; /* Off-white, paper-like background */
+            color: #4a3f35; /* Dark brown/grey text color */
+            padding: 30px; /* Increased padding around the content */
+            border: 1px solid #d4c2a8; /* Subtle border like a page edge */
+            box-shadow: 5px 5px 15px rgba(0,0,0,0.1); /* Simple shadow to lift the "page" */
+            text-align: left; /* Ensure body text is left-aligned by default */
+        }
+
+        h1 {
+            font-family: 'Special Elite', cursive; /* Typewriter-style font for the main title */
+            color: #3a2f25; /* Darker shade */
+            text-align: center;
+            margin-top: 0; /* Remove default top margin */
+            margin-bottom: 40px;
+            padding-bottom: 10px;
+            border-bottom: 2px dashed #d4c2a8; /* Dashed line like a notebook */
+            font-size: 2.8em; /* Keep heading size prominent */
+        }
+
+        img {
+            max-width: 75%; /* Made image a little bit larger (increased from 60%) */
+            height: auto; /* Maintain aspect ratio */
+            display: block;
+            margin: 25px auto; /* Center image and add vertical margin */
+            border: 5px solid #fff; /* White border around image like a photo mounted on a page */
+            box-shadow: 2px 2px 8px rgba(0,0,0,0.2); /* Photo-like shadow */
+            transform: rotate(1deg); /* Slightly rotate images for an informal look */
+            transition: transform 0.2s ease-in-out; /* Smooth rotation on hover */
+        }
+
+        img:hover {
+             transform: rotate(-1deg); /* Rotate slightly the other way on hover */
+        }
+
+        p {
+            font-family: 'Special Elite', cursive; /* Typewriter font for date */
+            color: #6a5f55; /* Muted color */
+            font-size: 0.9em; /* Keep date size relatively smaller */
+            margin-top: 10px;
+            margin-bottom: 30px; /* Add more space below the date */
+            text-align: right; /* Align date to the right */
+        }
+
+        /* Style for the content div */
+        div {
+            font-family: 'Coming Soon', cursive; /* Ensure content uses handwriting font */
+            color: #4a3f35; /* Match body text color */
+            margin-top: 20px; /* Space above the content */
+            padding: 0 15px; /* Increased horizontal padding inside the content block */
+            /* text-align: justify; /* Optional: uncomment to justify text */
+        }
+
+        /* Basic styling for potential HTML elements within post.content */
+        div p {
+            margin-bottom: 1.8em; /* Increased space between paragraphs in content */
+            text-align: left; /* Ensure paragraphs are left-aligned */
+        }
+
+        div h2, div h3 {
+             font-family: 'Special Elite', cursive; /* Use typewriter for headings within content */
+             color: #5a4f45;
+             margin-top: 2em; /* More space above headings */
+             margin-bottom: 1.2em; /* More space below headings */
+             text-align: left; /* Ensure headings are left-aligned */
+        }
+
+        div ul, div ol {
+            margin-bottom: 1.8em;
+            padding-left: 25px; /* Increased padding for list items */
+        }
+
+        div li {
+            margin-bottom: 0.7em;
+        }
+
+    </style>
+</head>
+<body>
+    <h1>{{ post.title }}</h1>
+    <img src="{{ post.image.url }}" alt="{{ post.title }} image"> {# Added alt text #}
+    <p>{{ post.created_at }}</p>
+    <div>{{ post.content|safe }}</div> {# This div contains the main content #}
+</body>
+</html>
