@@ -4,7 +4,6 @@
     <title>Weekly Diary</title>
     <link href="https://fonts.googleapis.com/css2?family=Coming+Soon&family=Special+Elite&display=swap" rel="stylesheet">
     <style>
-        /* CSS styles remain exactly the same as the previous version */
         body {
             font-family: 'Coming Soon', cursive; /* Default font */
             line-height: 1.8;
@@ -244,44 +243,42 @@
          .transition-overlay.show-wait .timer {
             opacity: 1; /* Fade in when active */
          }
+
     </style>
 </head>
 <body>
     <h1>Weekly Diary</h1>
-    {# Example placeholder content - replace with your loop or static content #}
-    <div class="post-entry">
-         <a href="#" class="post-link">
-             <h2>My Example Post</h2>
-             <img src="https://via.placeholder.com/600x400" alt="Example image">
-         </a>
-         <p>May 12, 2025</p>
-    </div>
-    <div class="post-entry">
-         <a href="#" class="post-link">
-             <h2>Another Day</h2>
-             <img src="https://via.placeholder.com/600x400?text=Second+Post" alt="Example image 2">
-         </a>
-         <p>May 11, 2025</p>
-    </div>
-    {# End Example Content #}
+    {% for post in posts %}
+        <div class="post-entry">
+             <a href="{{ post.slug }}" class="post-link">
+                 <h2>{{ post.title }}</h2>
+                 <img src="{{ post.image.url }}" alt="{{ post.title }} image">
+             </a>
+             <p>{{ post.created_at }}</p>
+        </div>
+    {% endfor %}
 
     <audio id="transitionSound" preload="auto">
         <source src="path/to/your/transition-swoosh.mp3" type="audio/mpeg">
         Your browser does not support the audio element.
     </audio>
 
-    <audio id="transitionMusic" preload="auto" loop> {/* Added loop attribute - optional */}
-        <source src="path/to/your/transition-music.mp3" type="audio/mpeg">
-        Your browser does not support the audio element.
-    </audio>
-
-
     <div class="transition-overlay" id="transitionOverlay">
-        <div class="cloud"><span></span></div> <div class="cloud"><span></span></div> <div class="cloud"><span></span></div>
-        <div class="cloud"><span></span></div> <div class="cloud"><span></span></div> <div class="cloud"><span></span></div>
-        <div class="cloud"><span></span></div> <div class="cloud"><span></span></div> <div class="cloud"><span></span></div>
-        <div class="cloud"><span></span></div> <div class="cloud"><span></span></div> <div class="cloud"><span></span></div>
-        <div class="cloud"><span></span></div> <div class="cloud"><span></span></div> <div class="cloud"><span></span></div>
+        <div class="cloud"><span></span></div>
+        <div class="cloud"><span></span></div>
+        <div class="cloud"><span></span></div>
+        <div class="cloud"><span></span></div>
+        <div class="cloud"><span></span></div>
+        <div class="cloud"><span></span></div>
+        <div class="cloud"><span></span></div>
+        <div class="cloud"><span></span></div>
+        <div class="cloud"><span></span></div>
+        <div class="cloud"><span></span></div>
+        <div class="cloud"><span></span></div>
+        <div class="cloud"><span></span></div>
+        <div class="cloud"><span></span></div>
+        <div class="cloud"><span></span></div>
+        <div class="cloud"><span></span></div>
 
         <div class="wait-message" id="waitMessage">Wait</div>
         <div class="timer" id="transitionTimer"></div>
@@ -294,65 +291,56 @@
             const overlay = document.getElementById('transitionOverlay');
             const waitMessage = document.getElementById('waitMessage');
             const transitionTimer = document.getElementById('transitionTimer');
-            const transitionSound = document.getElementById('transitionSound'); // Sound effect audio
-            const transitionMusic = document.getElementById('transitionMusic'); // Background music audio
+            const transitionSound = document.getElementById('transitionSound'); // Get the audio element
 
-            // Faster Transition Timings (same as before)
-            const timerCountdownDuration = 1;
-            const showWaitAndTimerDelay = 200;
-            const totalTransitionDuration = showWaitAndTimerDelay + (timerCountdownDuration * 1000);
+            // --- Faster Transition Timings ---
+            const timerCountdownDuration = 1; // Count down from 1 (1, 0) - Much faster!
+            const showWaitAndTimerDelay = 200; // Show "Wait" and timer after 0.2 seconds (Faster!)
+            // Recalculate total duration based on new timings
+            const totalTransitionDuration = showWaitAndTimerDelay + (timerCountdownDuration * 1000); // Total duration is delay + countdown time
 
             postLinks.forEach(link => {
                 link.addEventListener('click', function(event) {
                     event.preventDefault();
                     const targetUrl = this.href;
 
-                    // Activate the overlay
+                    // Activate the overlay to start the wipe animation
                     overlay.classList.add('active');
 
-                     // Play Sound Effect
+                     // --- Play Sound Effect ---
                     if (transitionSound) {
-                        transitionSound.currentTime = 0;
-                        transitionSound.play().catch(e => console.error("Sound effect play failed:", e));
-                    }
-
-                    // --- Play Background Music ---
-                    if (transitionMusic) {
-                        transitionMusic.currentTime = 0; // Rewind music to start
-                        transitionMusic.play().catch(e => console.error("Music play failed:", e)); // Play music
+                        transitionSound.currentTime = 0; // Rewind sound to start
+                        transitionSound.play().catch(e => console.error("Audio play failed:", e)); // Play sound (added error handling)
                     }
 
 
                     // Reset timer display
-                    transitionTimer.textContent = '';
+                    transitionTimer.textContent = ''; // Clear previous timer value
 
-                    // Set timeout for "Wait" message and timer
+                    // Set a timeout to show the "Wait" message and start the timer (Faster Delay)
                     setTimeout(function() {
+                        // Add a class to the overlay to show the wait message and timer
                         overlay.classList.add('show-wait');
-                        let timeLeft = timerCountdownDuration;
-                        transitionTimer.textContent = timeLeft;
+
+                        // Start the countdown timer (Faster Duration)
+                        let timeLeft = timerCountdownDuration; // Start countdown from the new duration
+                        transitionTimer.textContent = timeLeft; // Display initial time
 
                         const timerInterval = setInterval(function() {
                             timeLeft--;
                             if (timeLeft >= 0) {
                                 transitionTimer.textContent = timeLeft;
                             } else {
-                                clearInterval(timerInterval);
+                                clearInterval(timerInterval); // Stop the timer when done
                             }
-                        }, 1000);
+                        }, 1000); // Update every 1 second (interval kept the same, duration is shorter)
 
-                    }, showWaitAndTimerDelay);
+                    }, showWaitAndTimerDelay); // Use the faster delay
 
-                    // Wait for the full transition, then navigate
+                    // Wait for the new, shorter full transition duration, then navigate
                     setTimeout(function() {
-                        // --- Stop Background Music ---
-                        if (transitionMusic) {
-                            transitionMusic.pause(); // Stop the music
-                            // Optional: you could add a fade out effect here instead of abrupt pause
-                        }
-                        // Navigate to the target page
                         window.location.href = targetUrl;
-                    }, totalTransitionDuration);
+                    }, totalTransitionDuration); // Use the shorter total duration
                 });
             });
 
