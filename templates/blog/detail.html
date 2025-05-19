@@ -89,7 +89,7 @@
 </head>
 <body>
     <h1>{{ post.title }}</h1>
-    <img src="{{ post.image.url }}" alt="{{ post.title }} image"> {# Added alt text #}
+    <img src="{{ post.image.url }}" width="600"> {# Added alt text #}
     <p>{{ post.created_at }}</p>
     <div>{{ post.content|safe }}</div> {# This div contains the main content #}
 </body>
